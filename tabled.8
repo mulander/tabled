@@ -1,0 +1,81 @@
+.\" $Id: tabled.8,v 1.4 2007/04/14 06:25:56 mbalmer Exp $
+.\"
+.\" Copyright (c) 2006, 2007 Marc Balmer <marc@msys.ch>
+.\"
+.\" Permission to use, copy, modify, and distribute this software for any
+.\" purpose with or without fee is hereby granted, provided that the above
+.\" copyright notice and this permission notice appear in all copies.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+.\" WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+.\" MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+.\" ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+.\" WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+.\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+.\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.Dd January 12, 2007
+.Dt TABLED 8
+.Os
+.Sh NAME
+.Nm tabled
+.Nd daemon to manipulate pf tabled from userland
+.Sh SYNOPSIS
+.Nm tabled
+.Op Fl Csv
+.Bk -words
+.Op Fl C Ar configfile
+.Ek
+.Bk -words
+.Op Fl s Ar fifo
+.Ek
+.Bk -words
+.Op Fl v
+.Ek
+.Sh DESCRIPTION
+.Nm
+is a daemon to allow userland processes to manipulate pf tables.
+.Nm
+listens on a fifo for commands.
+Currently the following commands are implemented:
+.Bl -ohang
+.It Em add <table> <adr>
+Add <adr> to pf table <table>
+.It Em clr <table> <adr>
+Clear <adr> from pf table <table>
+.El
+.Pp
+Please note that you have to create the fifo using
+.Xr mkfifo 1
+before starting
+.Nm .
+.Pp
+The command line options are as follows:
+.Bl -tag -ohang -width Fl
+.It Fl C Ar configfile
+Specify an alternate location of the configfile.
+.It Fl s Ar fifo
+Specify the path to the fifo on which tabled listens.
+.It Fl v
+Run in verbose mode.
+.El
+.Sh FILES
+.Bl -tag -width "/var/run/tabled.sock" -COMPACT
+.It Pa /etc/tabled.conf
+Default location of the
+.Nm
+configuration file.
+.It Pa /var/run/tabled.sock
+Default location of the fifo to communicate with
+.Nm .
+.El
+.Sh SEE ALSO
+.Xr tabled.conf 5 ,
+.Xr tablec 8
+.Sh HISTORY
+.Nm
+was developed on
+.Ox 3.9 .
+.Sh AUTHORS
+.Nm
+was written by
+.An Marc Balmer Aq marc@msys.ch
